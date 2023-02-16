@@ -173,6 +173,7 @@ def load_investor_details(investors):
         for investorss in similar_investors:
             st.write(investorss)
 
+
     col3, col4 = st.columns(2)
     with col3:
         # biggest investments

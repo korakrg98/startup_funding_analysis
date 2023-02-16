@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 from nltk.stem.porter import PorterStemmer
 ps = PorterStemmer()
 from sklearn.feature_extraction.text import CountVectorizer
@@ -38,11 +39,17 @@ vectors = cv.fit_transform(df1['tags']).toarray()
 similarity = cosine_similarity(vectors)
 
 def similar_investor(investors):
-    investor_index = df1[df1['investor'] == investors].index[0]
-    distances = similarity[investor_index]
-    investor_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
-    result = [df1.iloc[i[0]].investor for i in investor_list]
-    return result
+    try:
+        investor_index = df1[df1['investor'] == investors].index[0]
+        distances = similarity[investor_index]
+        investor_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
+        result = [df1.iloc[i[0]].investor for i in investor_list]
+        return result
+    except:
+        message = f"Not enough data available to find similar investors for {investors}"
+        message = message.replace('\v', ' ')
+        st.write(message)
+        return []
 
 
 
