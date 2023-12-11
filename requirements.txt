@@ -3,6 +3,6 @@ numpy
 pandas
 matplotlib
 plotly
-googlesearch-python-extended
+googlesearch-python
 nltk
 scikit-learn

@@ -7,15 +7,17 @@ class StartupInfo:
         self.df = df
 
     def get_founder(self, startup_name):
-        # Replace "startup name" with the name of the startup you want to search for
-        query = f"founder of {startup_name}?"
-        # Get top 5 search results from Google
-        search_results = list(search(query))
+        query = f"founder of {startup_name}"
+        search_url = 'https://www.google.com/search?&q=' + '+'.join(query.split())
+        search_results = []
+        search_results.append(search_url)
         # Loop through search results and print the founder name (if found)
         for result in search_results:
-            if result in result.lower():
+            if "founder" in result.lower():
                 return result
         return "Founder name not found"
+
+
 
     def get_vertical(self, startup_name):
         vertical = self.df[self.df['startup'] == startup_name]['vertical'].values
